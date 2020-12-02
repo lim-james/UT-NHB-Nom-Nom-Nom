@@ -25,8 +25,8 @@ const Mouth = {
 };
 
 Mouth.isInside = (item, size) => {
-	const pourcent = size / 2 / (Screen.height / Screen.scale);
-	const ratioToAddSub = (50 * pourcent) / 100;
+	const pourcent = (size * 0.5) / (Screen.height / Screen.scale);
+	const ratioToAddSub = pourcent * 0.5;
 
 	const itemX = item.transform.position.x.pinLastValue();
 	const itemY = item.transform.position.y.pinLastValue();

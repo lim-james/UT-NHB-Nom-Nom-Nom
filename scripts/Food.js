@@ -1,19 +1,19 @@
 const Random = require('Random');
 const Scene = require('Scene');
 
-import { Screen, Rand } from './Common';
+import { Bounds, Rand } from './Common';
 import Physics from './Physics';
 
 const root = Scene.root;
 
 // Member methods
 
-const isOutOfScreen = object => object.position.y < Screen.min.y;
+const isOutOfScreen = object => object.position.y < Bounds.min.y;
 
-const randomisePosition = object => {
+const randomisePosition = (object, multiplier = 5, offset = 1) => {
 	object.position = {
-		x: Rand.range(Screen.min.x, Screen.max.x),
-		y: Screen.max.y * (Random.random() * 5 + 1),
+		x: Rand.range(Bounds.min.x, Bounds.max.x),
+		y: Bounds.max.y * (Random.random() * multiplier + offset),
 	};
 	return object;
 };
@@ -32,7 +32,7 @@ const addDish = dish => {
 		key: dish,
 		position: {
 			x: 0,
-			y: Screen.max.y,
+			y: Bounds.max.y,
 		},
 	});
 };
@@ -47,9 +47,7 @@ addDish('peanuts');
 
 const Food = {
 	objects: OBJECTS,
-	init: async objects => {
-		return await Promise.all(objects.map(initializeObject));
-	},
+	init: async objects => await Promise.all(objects.map(initializeObject)),
 	update: objects => {
 		const afterGravity = objects.map(Physics.applyGravity);
 	

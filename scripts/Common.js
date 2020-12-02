@@ -1,6 +1,6 @@
 const Random = require('Random');
 
-const Screen = {
+const Bounds = {
 	min: {
 		x: -0.1,
 		y: -0.3,
@@ -15,4 +15,10 @@ const Rand = {
 	range: (min, max) => (max - min) * Random.random() + min,
 };
 
-export { Screen, Rand };
+const G = {
+	dt: 10,
+};
+
+G.step = G.dt * 0.01;
+
+export { Bounds, Rand, G };
