@@ -2,7 +2,6 @@ const Random = require('Random');
 const Scene = require('Scene');
 
 import { Bounds, Rand } from './Common';
-import Physics from './Physics';
 
 const root = Scene.root;
 
@@ -49,10 +48,8 @@ const Food = {
 	objects: OBJECTS,
 	init: async objects => await Promise.all(objects.map(initializeObject)),
 	update: objects => {
-		const afterGravity = objects.map(Physics.applyGravity);
-	
-		const inBounds = afterGravity.filter(obj => !isOutOfScreen(obj));
-		const outside = afterGravity.filter(isOutOfScreen);
+		const inBounds = objects.filter(obj => !isOutOfScreen(obj));
+		const outside = objects.filter(isOutOfScreen);
 		const resetted = outside.map(randomisePosition);
 
 		return inBounds.concat(resetted);

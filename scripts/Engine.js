@@ -3,12 +3,14 @@ import { G } from './Common';
 
 import Food from './Food';
 import Game from './Game';
+import Physics from './Physics';
 
 const Engine = {
     objects: Food.objects, 
     init: Game.init,
 	update: async objects => {
-        const processed = await Game.update(objects, G.step);
+		const physics = Physics.update(objects);
+        const processed = await Game.update(physics, G.step);
 
 		// new iteration
 		Time.setTimeout(
