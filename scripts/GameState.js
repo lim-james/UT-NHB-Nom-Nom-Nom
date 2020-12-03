@@ -57,15 +57,7 @@ const GameState = {
 		return processed;
     },
 
-    exit: async (fsm, game, objects) => {
-	    const randomised = objects.map(randomisePosition);
-	    const disabledPhysics = randomised.map(object => {
-		    object.physics.isKinematic = false;
-		    return object;
-	    });
-
-	    return disabledPhysics;
-    },
+    exit: async (fsm, game, objects) => objects,
 };
 
 export default GameState;

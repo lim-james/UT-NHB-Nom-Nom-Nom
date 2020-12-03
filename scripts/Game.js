@@ -39,7 +39,7 @@ const setFoodPatches = object => {
 
 const Game = {
 	et: 0,
-	duration: 15,
+	duration: 2,
 	isPlaying: false,
 
 	dishIndex: 0,
