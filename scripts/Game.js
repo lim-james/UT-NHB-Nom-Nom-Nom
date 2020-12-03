@@ -39,11 +39,12 @@ const setFoodPatches = object => {
 
 const Game = {
 	et: 0,
-	duration: 2,
-	isPlaying: false,
+	duration: 15,
 
 	dishIndex: 0,
 	currentDish : () => Game.dishes[Game.dishIndex],
+
+	collected: [],
 };
 
 const FSM = {
@@ -59,11 +60,13 @@ const FSM = {
 		let processed = objects;
 
 		if (FSM.queuedState != null) {
-			const exited = await FSM.state.exit(FSM, Game, objects);
-			processed = await FSM.queuedState.enter(FSM, Game, exited);
-			// swap states
-			FSM.state = FSM.queuedState;
+			const next = FSM.queuedState;
 			FSM.queuedState = null;
+
+			const exited = await FSM.state.exit(FSM, Game, objects);
+			processed = await next.enter(FSM, Game, exited);
+			// swap states
+			FSM.state = next;
 		} 
 
 		return FSM.state.update(FSM, Game, processed, dt);

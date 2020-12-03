@@ -1,11 +1,11 @@
 import GameState from './GameState';
 
 const StartState = {
-    enter: async (fsm, game, objects) => {
+    enter: async (fsm, game, objects) => objects,
+    update: async (fsm, game, objects, dt) => {
         fsm.queuedState = GameState;
         return objects;
     },
-    update: async (fsm, game, objects, dt) => objects,
     exit: async (fsm, game, objects) => objects,
 };
 

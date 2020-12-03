@@ -11,6 +11,7 @@ const onMouthClose = (game, object) => {
 		return randomisePosition(object, 8, 2);
 	} else {
 		// is a dish
+		game.collected.push(object.key);
 		return randomisePosition(object, 4, 1);
 	}
 };
@@ -18,18 +19,19 @@ const onMouthClose = (game, object) => {
 const GameState = {
     enter: async (fsm, game, objects) => {
 	    game.et = game.duration;
-	    game.isPlaying = true;
 
 	    game.dishes.forEach(
 		    dish => dish.sceneObject.hidden = true
-	    );
+		);
+		
+		game.collected = [];
 
 	    const enabledPhysics = objects.map(object => {
 		    object.physics.isKinematic = true;
 		    return object;
 	    });
 
-	    return Food.init(enabledPhysics);
+	    return await Food.init(enabledPhysics);
     },
 
     update: async (fsm, game, objects, dt) => {
@@ -47,7 +49,7 @@ const GameState = {
 		if (Mouth.isClose) {
 			processed = processed.map(object => {
 				if (Mouth.isInside(object.sceneObject, 100)) 
-					return onMouthClose(object);
+					return onMouthClose(game, object);
 
 				return object;
 			});

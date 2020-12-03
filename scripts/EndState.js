@@ -1,5 +1,6 @@
 import { Bounds } from './Common';
 import Math from './Math';
+import StartState from './StartState';
 
 const EndState = {
 	clockY: -0.15,
@@ -43,18 +44,24 @@ const EndState = {
 		    	value.position.y = Math.lerp(value.position.y, getY(index), t);
 		    	return value;
 			});
-		} else if (game.et > 3) {
+		} else if (game.et > 3 && game.et < 15) {
 			const et = game.et - 3;
-			processed = ingredients.map((value, index) => {
+			processed = ingredients.filter(value => game.collected.includes(value.key)).map((value, index) => {
 				const t = Math.clamp((et - index * 0.5) / 3, 0, 1);
 		    	value.position.y = Math.lerp(value.position.y, EndState.clockY, t);
 		    	return value;
 			});
+		} else {
+			fsm.queuedState = StartState;
 		}
 
         return randoms.concat(processed);
 	},
-    exit: async (fsm, game, objects) => objects,
+
+	exit: async (fsm, game, objects) => {
+		game.currentDish().sceneObject.hidden = true;
+		return objects;
+	},
 };
 
 export default EndState;
