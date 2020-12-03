@@ -6,13 +6,19 @@ import Game from './Game';
 import Physics from './Physics';
 
 const Engine = {
-    objects: Food.objects, 
-    init: Game.init,
+	objects: Food.objects, 
+
+	init: Game.init,
+
 	update: async objects => {
 		const physics = Physics.update(objects);
         const processed = await Game.update(physics, G.step);
+		await Engine.postUpdate(processed);
+	},
 
-		// new iteration
+	postUpdate: async objects => {
+		const processed = await Game.postUpdate(objects);
+
 		Time.setTimeout(
 			async () => await Engine.update(processed),
 			G.dt

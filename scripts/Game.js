@@ -59,7 +59,12 @@ const onGameStart = async objects => {
 		dish => dish.sceneObject.hidden = true
 	);
 
-	return await Food.init(objects);
+	const enabledPhysics = objects.map(object => {
+		object.physics.isKinematic = true;
+		return object;
+	});
+
+	return await Food.init(enabledPhysics);
 };
 
 const onGameEnd = objects => {
@@ -79,7 +84,13 @@ const onGameEnd = objects => {
 		return value;
 	});
 
-	return randoms.concat(ingredients);
+	const processed = randoms.concat(ingredients);
+	const disabledPhysics = processed.map(object => {
+		object.physics.isKinematic = false;
+		return object;
+	});
+
+	return disabledPhysics;
 };
 
 ///
@@ -100,10 +111,7 @@ const Game = {
 		if (Game.et <= 0) {
 			if (Game.isPlaying) {
 				Game.isPlaying = false;
-				const processed = onGameEnd(objects);
-				// set food porperties
-				await Promise.all(processed.map(setFoodPatches));
-				return processed;
+				return onGameEnd(objects);
 			} else {
 				return objects;
 			}
@@ -125,10 +133,13 @@ const Game = {
 			Mouth.isClose = false;
 		}
 
-		// set food porperties
-		await Promise.all(processed.map(setFoodPatches));
-
 		return processed;
+	},
+
+	postUpdate: async objects => {
+		// set food porperties
+		await Promise.all(objects.map(setFoodPatches));
+		return objects;
 	},
 };
 

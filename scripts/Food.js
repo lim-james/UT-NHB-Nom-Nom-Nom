@@ -33,6 +33,9 @@ const addDish = dish => {
 			x: 0,
 			y: Bounds.max.y,
 		},
+		physics: {
+			isKinematic: false,
+		},
 	});
 };
 
