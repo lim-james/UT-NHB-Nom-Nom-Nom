@@ -8,12 +8,16 @@ const EndState = {
     enter: async (fsm, game, objects) => {
     	game.currentDish().sceneObject.hidden = false;
 
-	    const isRandom = obj => !game.currentDish().ingredients.includes(obj.key);
 	    const isIngredient = obj => game.currentDish().ingredients.includes(obj.key);
 
-	    // not optimised, just for ease of implementation
-	    const randoms = objects.filter(isRandom);
-		const ingredients = objects.filter(isIngredient).map(i => {
+		let ingredients = [];
+		let randoms = [];
+
+		objects.forEach(
+			element => (isIngredient(element) ? ingredients : randoms).push(element)
+		);
+
+		ingredients = ingredients.map(i => {
 			i.physics.isKinematic = false;
 			return i;
 		});
@@ -26,12 +30,14 @@ const EndState = {
     update: async (fsm, game, objects, dt) => {
 		game.et += dt;
 
-	    const isRandom = obj => !game.currentDish().ingredients.includes(obj.key);
 	    const isIngredient = obj => game.currentDish().ingredients.includes(obj.key);
 
-	    // not optimised, just for ease of implementation
-	    const randoms = objects.filter(isRandom);
-		const ingredients = objects.filter(isIngredient);
+		let ingredients = [];
+		let randoms = [];
+
+		objects.forEach(
+			element => (isIngredient(element) ? ingredients : randoms).push(element)
+		);
 
 		let processed = ingredients; 
 
@@ -44,15 +50,27 @@ const EndState = {
 		    	value.position.y = Math.lerp(value.position.y, getY(index), t);
 		    	return value;
 			});
-		} else if (game.et > 3 && game.et < 15) {
+		} else if (game.et > 3) {
 			const et = game.et - 3;
-			processed = ingredients.filter(value => game.collected.includes(value.key)).map((value, index) => {
+
+			const isCollected = obj => game.collected.includes(obj.key);
+
+			let collected = [];
+			let others = [];
+
+			ingredients.forEach(
+				element => (isCollected(element) ? collected : others).push(element)
+			);
+
+			collected = collected.map((value, index) => {
 				const t = Math.clamp((et - index * 0.5) / 3, 0, 1);
 		    	value.position.y = Math.lerp(value.position.y, EndState.clockY, t);
 		    	return value;
 			});
+
+			processed = collected.concat(others);
 		} else {
-			fsm.queuedState = StartState;
+			// fsm.queuedState = StartState;
 		}
 
         return randoms.concat(processed);

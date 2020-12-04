@@ -7,12 +7,12 @@ import EndState from './EndState';
 
 const onMouthClose = (game, object) => {
 	if (game.currentDish().ingredients.includes(object.key)) {
-		// not one of the dishes
-		return randomisePosition(object, 8, 2);
-	} else {
 		// is a dish
 		game.collected.push(object.key);
 		return randomisePosition(object, 4, 1);
+	} else {
+		// not one of the dishes
+		return randomisePosition(object, 8, 2);
 	}
 };
 
