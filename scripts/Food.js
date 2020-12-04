@@ -9,7 +9,7 @@ const root = Scene.root;
 
 const isOutOfScreen = object => object.position.y < Bounds.min.y;
 
-const randomisePosition = (object, multiplier = 5, offset = 1) => {
+const randomisePosition = (object, multiplier = 3, offset = 1) => {
 	object.position = {
 		x: Rand.range(Bounds.min.x, Bounds.max.x),
 		y: Bounds.max.y * (Random.random() * multiplier + offset),
