@@ -1,9 +1,8 @@
 const Random = require('Random');
 const Scene = require('Scene');
+const Diagnostics = require('Diagnostics');
 
 import { Bounds, Rand } from './Common';
-
-const root = Scene.root;
 
 // Member methods
 
@@ -18,7 +17,7 @@ const randomisePosition = (object, multiplier = 3, offset = 1) => {
 };
 
 const initializeObject = async object => {
-	object.sceneObject = await root.findFirst(object.key);
+	object.sceneObject = await Scene.root.findFirst(object.key);
 	return randomisePosition(object);
 };
 

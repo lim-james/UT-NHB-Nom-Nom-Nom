@@ -11,8 +11,8 @@ const onMouthClose = (game, object) => {
 		// is a dish
 		GameState.right.delay = 0.4;
 		GameState.right.sceneObject.hidden = false;
-		GameState.right.sceneObject.x = object.position.x;
-		GameState.right.sceneObject.y = object.position.y;
+		GameState.right.sceneObject.transform.x = object.position.x;
+		GameState.right.sceneObject.transform.y = object.position.y;
 
 		game.collected.push(object.key);
 		return randomisePosition(object, 4, 1);
@@ -20,8 +20,8 @@ const onMouthClose = (game, object) => {
 		// not one of the dishes
 		GameState.wrong.delay = 0.4;
 		GameState.wrong.sceneObject.hidden = false;
-		GameState.wrong.sceneObject.x = object.position.x;
-		GameState.wrong.sceneObject.y = object.position.y;
+		GameState.wrong.sceneObject.transform.x = object.position.x;
+		GameState.wrong.sceneObject.transform.y = object.position.y;
 
 		return randomisePosition(object, 8, 2);
 	}
@@ -52,7 +52,7 @@ const GameState = {
 			sceneObject: await Scene.root.findFirst('chomp_wrong'),
 		};
 
-	    return await Food.init(enabledPhysics);
+	    return enabledPhysics.map(i => randomisePosition(i));
     },
 
     update: async (fsm, game, objects, dt) => {

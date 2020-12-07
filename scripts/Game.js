@@ -1,7 +1,6 @@
-const Patches = require('Patches');
 const Scene = require('Scene');
 
-import StartState from './StartState';
+import InitState from './InitState';
 
 ///
 /// game properties
@@ -27,10 +26,8 @@ const initializeObject = async object => {
 };
 
 const setFoodPatches = object => {
-	return [
-		Patches.inputs.setScalar(object.key + '_x', object.position.x),
-		Patches.inputs.setScalar(object.key + '_y', object.position.y),
-	];
+	object.sceneObject.transform.x = object.position.x;
+	object.sceneObject.transform.y = object.position.y;
 };
 
 ///
@@ -49,7 +46,7 @@ const Game = {
 };
 
 const FSM = {
-	state: StartState,
+	state: InitState,
 	queuedState: null,
 
 	init: async objects => {
@@ -75,7 +72,7 @@ const FSM = {
 
 	postUpdate: async objects => {
 		// set food porperties
-		await Promise.all(objects.map(setFoodPatches));
+		objects.forEach(setFoodPatches);
 		return objects;
 	},
 };
