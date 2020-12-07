@@ -65,6 +65,7 @@ const GameState = {
 		game.et -= dt;
 		// move clock hand
 		await Patches.inputs.setScalar('progress', game.et / game.duration);
+		game.audio.bg.setPlaying(true);
 
 		let processed = Food.update(game, objects);
 
@@ -97,6 +98,11 @@ const GameState = {
 
     exit: async (fsm, game, objects) => {
 		await Patches.inputs.setBoolean('isPlaying', false);
+
+		game.audio.bg.setPlaying(false);
+
+		game.audio.done.reset();
+		game.audio.done.setPlaying(true);
 
 		GameState.right.sceneObject.hidden = true;
 		GameState.wrong.sceneObject.hidden = true;
