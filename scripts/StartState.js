@@ -4,7 +4,7 @@ import GameState from './GameState';
 
 const StartState = {
     enter: async (fsm, game, objects) => {
-        TouchGestures.onTap().subscribe((gesture) => {
+        game.tapGesture.subscribe((gesture) => {
             fsm.queuedState = GameState;
         });
         return objects
@@ -13,7 +13,7 @@ const StartState = {
     update: async (fsm, game, objects, dt) => objects,
 
     exit: async (fsm, game, objects) => {
-        TouchGestures.onTap().subscribe(() => {});
+        game.tapGesture.subscribe(() => {});
         return objects;
     },
 };

@@ -1,6 +1,6 @@
 const Materials = require('Materials');
 const Scene = require('Scene');
-const TouchGestures = require('TouchGestures');
+const Patches = require('Patches');
 
 import { Bounds } from './Common';
 import Math from './Math';
@@ -41,7 +41,7 @@ const EndState = {
 		EndState.clockObject = await Scene.root.findFirst('clock');
 		EndState.clockObject.hidden = true;
 
-        TouchGestures.onTap().subscribe((gesture) => {
+        game.tapGesture.subscribe((gesture) => {
             fsm.queuedState = GameState;
         });
 
@@ -76,6 +76,9 @@ const EndState = {
 		    	value.position.y = Math.lerp(value.position.y, getY(index), t);
 		    	return value;
 			});
+		} else if (game.et > 20) {
+			await Patches.inputs.setBoolean('isPlaying', false);
+			fsm.queuedState = GameState;
 		} else if (game.et > 3) {
 			const et = game.et - 3;
 
@@ -104,7 +107,6 @@ const EndState = {
 
 			processed = collected.concat(others);
 		} else {
-			// fsm.queuedState = StartState;
 		}
 
         return randoms.concat(processed);
@@ -115,7 +117,7 @@ const EndState = {
 		EndState.blastObject.hidden = true;
 		EndState.clockObject.hidden = false;
 
-		TouchGestures.onTap().subscribe(() => {});
+		game.tapGesture.subscribe(() => {});
 
 		return objects;
 	},

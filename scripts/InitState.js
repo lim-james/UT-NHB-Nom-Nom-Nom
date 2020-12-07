@@ -1,7 +1,11 @@
 const Audio = require('Audio');
+const TouchGestures = require('TouchGestures');
+const Scene = require('Scene');
+const Diagnostics = require('Diagnostics');
 
 import StartState from './StartState';
 import Food from './Food';
+import GameState from './GameState';
 
 const InitState = {
     enter: async (fsm, game, objects) => {
@@ -12,6 +16,10 @@ const InitState = {
             wrong: await Audio.getAudioPlaybackController('Wrong Controller'),
             done: await Audio.getAudioPlaybackController('Done Controller'),
         };
+        
+        // game.tapGesture = TouchGestures.onTap(await Scene.root.findFirst('start'));
+        game.tapGesture = TouchGestures.onTap();
+
         return Food.init(objects);
     },
 

@@ -59,7 +59,6 @@ const GameState = {
 
 		await Patches.inputs.setBoolean('isPlaying', true);
   		game.audio.bg.setPlaying(true);
-  		game.audio.bg.setLooping(true);
 
 	    return enabledPhysics.map(game.randomisePosition);
     },
@@ -104,10 +103,10 @@ const GameState = {
     },
 
     exit: async (fsm, game, objects) => {
-		await Patches.inputs.setBoolean('isPlaying', false);
-
 		game.audio.done.reset();
 		game.audio.done.setPlaying(true);
+
+  		game.audio.bg.setPlaying(false);
 
 		GameState.right.sceneObject.hidden = true;
 		GameState.wrong.sceneObject.hidden = true;
