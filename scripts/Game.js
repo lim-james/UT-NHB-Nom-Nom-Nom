@@ -21,7 +21,7 @@ const DISHES = [
 ///
 
 const initializeObject = async object => {
-	object.sceneObject = await root.findFirst('fd_' + object.key);
+	object.sceneObject = await root.findFirst(object.key + '_image');
 	object.sceneObject.hidden = true;
 	return object;
 };
@@ -43,6 +43,7 @@ const Game = {
 
 	dishIndex: 0,
 	currentDish : () => Game.dishes[Game.dishIndex],
+	isIngredient: item => Game.currentDish().ingredients.includes(item.key),
 
 	collected: [],
 };

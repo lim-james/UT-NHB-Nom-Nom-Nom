@@ -53,7 +53,7 @@ const Food = {
 	update: objects => {
 		const inBounds = objects.filter(obj => !isOutOfScreen(obj));
 		const outside = objects.filter(isOutOfScreen);
-		const resetted = outside.map(randomisePosition);
+		const resetted = outside.map(i => randomisePosition(i));
 
 		return inBounds.concat(resetted);
 	},
