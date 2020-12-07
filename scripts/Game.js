@@ -1,4 +1,5 @@
 const Scene = require('Scene');
+const Patches = require('Patches');
 
 import { randomisePosition } from './Food';
 import InitState from './InitState';
@@ -39,8 +40,7 @@ const Game = {
 	et: 0,
 	duration: 15,
 
-	dishIndex: 0,
-	currentDish : () => Game.dishes[Game.dishIndex],
+	currentDish : () => Game.dishes[Game.dishIndex?.pinLastValue() ?? 0],
 	isIngredient: item => Game.currentDish().ingredients.includes(item.key),
 
 	randomisePosition: object => {
@@ -52,6 +52,10 @@ const Game = {
 
 	collected: [],
 };
+
+(async () => {
+	Game.dishIndex = await Patches.outputs.getScalar('dishIndex');
+})();
 
 const FSM = {
 	state: InitState,

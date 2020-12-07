@@ -51,6 +51,8 @@ const GameState = {
 			sceneObject: await Scene.root.findFirst('chomp_wrong'),
 		};
 
+		await Patches.inputs.setBoolean('isPlaying', true);
+
 	    return enabledPhysics.map(game.randomisePosition);
     },
 
@@ -94,6 +96,8 @@ const GameState = {
     },
 
     exit: async (fsm, game, objects) => {
+		await Patches.inputs.setBoolean('isPlaying', false);
+
 		GameState.right.sceneObject.hidden = true;
 		GameState.wrong.sceneObject.hidden = true;
 		return objects;

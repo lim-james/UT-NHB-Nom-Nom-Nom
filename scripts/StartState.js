@@ -1,6 +1,4 @@
 const TouchGestures = require('TouchGestures');
-const Diagnostics = require('Diagnostics');
-const Scene = require('Scene');
 
 import GameState from './GameState';
 
