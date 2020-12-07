@@ -45,6 +45,12 @@ addDish('carrot');
 addDish('coriander');
 addDish('shrimp_paste');
 addDish('peanuts');
+// wrong
+addDish('banana');
+addDish('chicken');
+addDish('chocolate');
+addDish('pumpkin');
+addDish('corn');
 
 const Food = {
 	objects: OBJECTS,

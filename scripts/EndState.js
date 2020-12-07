@@ -23,6 +23,11 @@ const EndState = {
 			i.physics.isKinematic = false;
 			return i;
 		});
+
+		randoms = randoms.map(i => {
+			i.physics.isKinematic = false;
+			return game.randomisePosition(i);
+		});
 		
 		game.et = 0;
 
@@ -48,7 +53,6 @@ const EndState = {
 				EndState.blastObject.hidden = true;
 			}
 		}
-
 
 		let ingredients = [];
 		let randoms = [];
