@@ -8,20 +8,26 @@ import EndState from './EndState';
 
 const onMouthClose = (game, object) => {
 	let indicator;
+	let audio;
 
 	if (game.isIngredient(object)) {
 		// is a dish
 		game.collected.push(object.key);
 		indicator = GameState.right;
+		audio = game.audio.right;
 	} else {
 		// not one of the dishes
 		indicator = GameState.wrong;
+		audio = game.audio.wrong;
 	}
 
 	indicator.delay = 0.4;
 	indicator.sceneObject.hidden = false;
 	indicator.sceneObject.transform.x = object.position.x;
 	indicator.sceneObject.transform.y = object.position.y;
+
+	audio.reset();
+	audio.setPlaying(true);
 
 	return game.randomisePosition(object);
 };

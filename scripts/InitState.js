@@ -8,8 +8,8 @@ const InitState = {
         game.audio = {
 			bg: await Audio.getAudioPlaybackController("Timer"),
 			final: await Audio.getAudioPlaybackController("Final"),
-			// right: await Audio.getAudioPlaybackController("Right"),
-            // wrong: await Audio.getAudioPlaybackController("Wrong"),
+			right: await Audio.getAudioPlaybackController("Right"),
+            wrong: await Audio.getAudioPlaybackController("Wrong"),
             done: await Audio.getAudioPlaybackController("Done"),
         };
         return Food.init(objects);
