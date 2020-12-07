@@ -7,7 +7,7 @@ const InitState = {
     enter: async (fsm, game, objects) => {
         game.audio = {
 			bg: await Audio.getAudioPlaybackController("Timer"),
-			// final: await Audio.getAudioPlaybackController("Final"),
+			final: await Audio.getAudioPlaybackController("Final"),
 			// right: await Audio.getAudioPlaybackController("Right"),
             // wrong: await Audio.getAudioPlaybackController("Wrong"),
             done: await Audio.getAudioPlaybackController("Done"),

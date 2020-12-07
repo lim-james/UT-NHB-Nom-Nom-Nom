@@ -94,6 +94,9 @@ const EndState = {
 					EndState.blastDelay = 0.4;
 					EndState.blastObject.hidden = false;
 					EndState.blastIndex = index;
+
+					game.audio.final.reset();
+					game.audio.final.setPlaying(true);
 				}
 				value.position.y = Math.lerp(value.position.y, EndState.clockY, t);
 		    	return value;
