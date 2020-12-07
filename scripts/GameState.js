@@ -8,20 +8,26 @@ import EndState from './EndState';
 
 const onMouthClose = (game, object) => {
 	let indicator;
+	let audio;
 
 	if (game.isIngredient(object)) {
 		// is a dish
 		game.collected.push(object.key);
 		indicator = GameState.right;
+		audio = game.audio.right;
 	} else {
 		// not one of the dishes
 		indicator = GameState.wrong;
+		audio = game.audio.wrong;
 	}
 
 	indicator.delay = 0.4;
 	indicator.sceneObject.hidden = false;
 	indicator.sceneObject.transform.x = object.position.x;
 	indicator.sceneObject.transform.y = object.position.y;
+
+	audio.reset();
+	audio.setPlaying(true);
 
 	return game.randomisePosition(object);
 };
@@ -52,6 +58,8 @@ const GameState = {
 		};
 
 		await Patches.inputs.setBoolean('isPlaying', true);
+  		game.audio.bg.setPlaying(true);
+  		game.audio.bg.setLooping(true);
 
 	    return enabledPhysics.map(game.randomisePosition);
     },
@@ -97,6 +105,9 @@ const GameState = {
 
     exit: async (fsm, game, objects) => {
 		await Patches.inputs.setBoolean('isPlaying', false);
+
+		game.audio.done.reset();
+		game.audio.done.setPlaying(true);
 
 		GameState.right.sceneObject.hidden = true;
 		GameState.wrong.sceneObject.hidden = true;

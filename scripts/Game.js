@@ -40,7 +40,7 @@ const Game = {
 	et: 0,
 	duration: 15,
 
-	currentDish : () => Game.dishes[Game.dishIndex?.pinLastValue() ?? 0],
+	currentDish : () => Game.dishes[Game.dishIndex.pinLastValue()],
 	isIngredient: item => Game.currentDish().ingredients.includes(item.key),
 
 	randomisePosition: object => {
