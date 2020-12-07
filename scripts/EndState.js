@@ -1,10 +1,10 @@
 const Materials = require('Materials');
 const Scene = require('Scene');
-const Diagnostics = require('Diagnostics');
+const TouchGestures = require('TouchGestures');
 
 import { Bounds } from './Common';
 import Math from './Math';
-import StartState from './StartState';
+import GameState from './GameState';
 
 const EndState = {
 	clockY: -0.15,
@@ -40,6 +40,10 @@ const EndState = {
 
 		EndState.clockObject = await Scene.root.findFirst('clock');
 		EndState.clockObject.hidden = true;
+
+        TouchGestures.onTap().subscribe((gesture) => {
+            fsm.queuedState = GameState;
+        });
 
         return randoms.concat(ingredients);
     },
@@ -107,6 +111,9 @@ const EndState = {
 		game.currentDish().sceneObject.hidden = true;
 		EndState.blastObject.hidden = true;
 		EndState.clockObject.hidden = false;
+
+		TouchGestures.onTap().subscribe(() => {});
+
 		return objects;
 	},
 };
