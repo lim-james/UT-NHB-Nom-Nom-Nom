@@ -49,10 +49,10 @@ addDish('peanuts');
 const Food = {
 	objects: OBJECTS,
 	init: async objects => await Promise.all(objects.map(initializeObject)),
-	update: objects => {
+	update: (game, objects) => {
 		const inBounds = objects.filter(obj => !isOutOfScreen(obj));
 		const outside = objects.filter(isOutOfScreen);
-		const resetted = outside.map(i => randomisePosition(i));
+		const resetted = outside.map(game.randomisePosition);
 
 		return inBounds.concat(resetted);
 	},

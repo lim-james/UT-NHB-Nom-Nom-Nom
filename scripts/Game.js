@@ -1,5 +1,6 @@
 const Scene = require('Scene');
 
+import { randomisePosition } from './Food';
 import InitState from './InitState';
 
 ///
@@ -41,6 +42,13 @@ const Game = {
 	dishIndex: 0,
 	currentDish : () => Game.dishes[Game.dishIndex],
 	isIngredient: item => Game.currentDish().ingredients.includes(item.key),
+
+	randomisePosition: object => {
+		if (Game.isIngredient(object))
+			return randomisePosition(object, 3, 1);
+		else
+			return randomisePosition(object, 8, 2);
+	},
 
 	collected: [],
 };

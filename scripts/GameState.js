@@ -1,30 +1,29 @@
 const Patches = require('Patches');
 const Scene = require('Scene');
 
-import Food, { randomisePosition } from './Food';
+import Food from './Food';
 import Mouth from './Mouth';
 
 import EndState from './EndState';
 
 const onMouthClose = (game, object) => {
+	let indicator;
+
 	if (game.isIngredient(object)) {
 		// is a dish
-		GameState.right.delay = 0.4;
-		GameState.right.sceneObject.hidden = false;
-		GameState.right.sceneObject.transform.x = object.position.x;
-		GameState.right.sceneObject.transform.y = object.position.y;
-
 		game.collected.push(object.key);
-		return randomisePosition(object, 4, 1);
+		indicator = GameState.right;
 	} else {
 		// not one of the dishes
-		GameState.wrong.delay = 0.4;
-		GameState.wrong.sceneObject.hidden = false;
-		GameState.wrong.sceneObject.transform.x = object.position.x;
-		GameState.wrong.sceneObject.transform.y = object.position.y;
-
-		return randomisePosition(object, 8, 2);
+		indicator = GameState.wrong;
 	}
+
+	indicator.delay = 0.4;
+	indicator.sceneObject.hidden = false;
+	indicator.sceneObject.transform.x = object.position.x;
+	indicator.sceneObject.transform.y = object.position.y;
+
+	return game.randomisePosition(object);
 };
 
 const GameState = {
@@ -52,7 +51,7 @@ const GameState = {
 			sceneObject: await Scene.root.findFirst('chomp_wrong'),
 		};
 
-	    return enabledPhysics.map(i => randomisePosition(i));
+	    return enabledPhysics.map(game.randomisePosition);
     },
 
     update: async (fsm, game, objects, dt) => {
@@ -65,7 +64,7 @@ const GameState = {
 		// move clock hand
 		await Patches.inputs.setScalar('progress', game.et / game.duration);
 
-		let processed = Food.update(objects);
+		let processed = Food.update(game, objects);
 
 		if (Mouth.isClose) {
 			processed = processed.map(object => {
