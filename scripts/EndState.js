@@ -27,18 +27,28 @@ const EndState = {
 		game.et = 0;
 
 		EndState.blastIndex = -1;
+		EndState.blastDelay = 0;
 		EndState.blastMaterial = await Materials.findFirst('Blast');
 
 		EndState.blastObject = await Scene.root.findFirst('blast');
-		EndState.blastObject.hidden = false;
+		// EndState.blastObject.hidden = false;
 
 		EndState.clockObject = await Scene.root.findFirst('clock');
+		EndState.clockObject.hidden = true;
 
         return randoms.concat(ingredients);
     },
 
     update: async (fsm, game, objects, dt) => {
 		game.et += dt;
+
+		if (EndState.blastDelay > 0) {
+			EndState.blastDelay -= dt;
+			if (EndState.blastDelay <= 0) {
+				EndState.blastObject.hidden = true;
+			}
+		}
+
 
 		let ingredients = [];
 		let randoms = [];
@@ -59,7 +69,6 @@ const EndState = {
 		    	return value;
 			});
 		} else if (game.et > 3) {
-			EndState.clockObject.hidden = true;
 			const et = game.et - 3;
 
 			const isCollected = obj => game.collected.includes(obj.key);
@@ -73,9 +82,10 @@ const EndState = {
 
 			collected = collected.map((value, index) => {
 				const t = Math.clamp((et - index * 0.5) / 3, 0, 1);
-				if (t >= 1 && index > EndState.blastIndex) {
-					// EndState.blastMaterial.getDiffuse().currentFrame = 0;
-					// EndState.blastIndex = index;
+				if (t >= 0.25 && index > EndState.blastIndex) {
+					EndState.blastDelay = 0.4;
+					EndState.blastObject.hidden = false;
+					EndState.blastIndex = index;
 				}
 				value.position.y = Math.lerp(value.position.y, EndState.clockY, t);
 		    	return value;
