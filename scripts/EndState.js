@@ -13,7 +13,7 @@ const EndState = {
 
     enter: async (fsm, game, objects) => {
     	game.currentDish().sceneObject.hidden = false;
-    	await Patches.inputs.setPulse('popiah_appear', Reactive.once());
+    	await Patches.inputs.setPulse(game.currentDish().key + '_appear', Reactive.once());
 
 		let ingredients = [];
 		let randoms = [];
