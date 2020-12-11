@@ -20,8 +20,8 @@ const DISHES = [
 		ingredients: ['grated_coconut', 'gula_melaka', 'pandan', 'rice_flour', 'sweet_potato']
 	},
 	{
-		key: 'popiah',
-		ingredients: ['popiah_skin', 'turnip', 'beansprouts', 'carrot', 'coriander', 'shrimp_paste', 'peanuts']
+		key: 'rojak',
+		ingredients: ['chilli_paste', 'cucumber', 'prawn', 'deep_fried_tofu', 'cuttlefish', 'vadai', 'onions', 'tumeric']
 	}
 ];
 

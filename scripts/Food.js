@@ -52,6 +52,15 @@ addDish('gula_melaka');
 addDish('pandan');
 addDish('rice_flour');
 addDish('sweet_potato');
+// rojak
+addDish('chilli_paste');
+addDish('cucumber');
+addDish('prawn');
+addDish('deep_fried_tofu');
+addDish('cuttlefish');
+addDish('vadai');
+addDish('onions');
+addDish('tumeric');
 // wrong
 addDish('banana');
 addDish('chicken');
