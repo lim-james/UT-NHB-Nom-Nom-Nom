@@ -38,6 +38,7 @@ const addDish = dish => {
 	});
 };
 
+// popiah
 addDish('popiah_skin');
 addDish('turnip');
 addDish('beansprouts');
@@ -45,6 +46,12 @@ addDish('carrot');
 addDish('coriander');
 addDish('shrimp_paste');
 addDish('peanuts');
+// ondeh
+addDish('grated_coconut');
+addDish('gula_melaka');
+addDish('pandan');
+addDish('rice_flour');
+addDish('sweet_potato');
 // wrong
 addDish('banana');
 addDish('chicken');

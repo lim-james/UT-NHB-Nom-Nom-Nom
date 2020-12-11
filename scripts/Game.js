@@ -16,8 +16,8 @@ const DISHES = [
 		ingredients: ['popiah_skin', 'turnip', 'beansprouts', 'carrot', 'coriander', 'shrimp_paste', 'peanuts']
 	},
 	{
-		key: 'popiah',
-		ingredients: ['popiah_skin', 'turnip', 'beansprouts', 'carrot', 'coriander', 'shrimp_paste', 'peanuts']
+		key: 'ondeh',
+		ingredients: ['grated_coconut', 'gula_melaka', 'pandan', 'rice_flour', 'sweet_potato']
 	},
 	{
 		key: 'popiah',
