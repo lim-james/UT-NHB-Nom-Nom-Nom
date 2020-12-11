@@ -14,6 +14,14 @@ const DISHES = [
 	{
 		key: 'popiah',
 		ingredients: ['popiah_skin', 'turnip', 'beansprouts', 'carrot', 'coriander', 'shrimp_paste', 'peanuts']
+	},
+	{
+		key: 'popiah',
+		ingredients: ['popiah_skin', 'turnip', 'beansprouts', 'carrot', 'coriander', 'shrimp_paste', 'peanuts']
+	},
+	{
+		key: 'popiah',
+		ingredients: ['popiah_skin', 'turnip', 'beansprouts', 'carrot', 'coriander', 'shrimp_paste', 'peanuts']
 	}
 ];
 
