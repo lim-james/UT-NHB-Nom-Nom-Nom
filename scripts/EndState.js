@@ -1,4 +1,6 @@
 const Materials = require('Materials');
+const Patches = require('Patches');
+const Reactive = require('Reactive');
 const Scene = require('Scene');
 const TouchGestures = require('TouchGestures');
 
@@ -11,6 +13,7 @@ const EndState = {
 
     enter: async (fsm, game, objects) => {
     	game.currentDish().sceneObject.hidden = false;
+    	await Patches.inputs.setPulse('popiah_appear', Reactive.once());
 
 		let ingredients = [];
 		let randoms = [];

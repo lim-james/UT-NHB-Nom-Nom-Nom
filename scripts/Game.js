@@ -30,7 +30,7 @@ const DISHES = [
 ///
 
 const initializeObject = async object => {
-	object.sceneObject = await root.findFirst(object.key + '_image');
+	object.sceneObject = await root.findFirst(object.key + '_appear');
 	object.sceneObject.hidden = true;
 	return object;
 };
