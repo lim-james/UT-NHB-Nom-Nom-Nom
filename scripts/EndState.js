@@ -91,6 +91,8 @@ const EndState = {
 				element => (isCollected(element) ? collected : others).push(element)
 			);
 
+			game.crown.hidden = others.length == 0;
+
 			collected = collected.map((value, index) => {
 				const t = Math.clamp((et - index * 0.5) / 3, 0, 1);
 				if (t >= 0.25 && index > EndState.blastIndex) {
@@ -106,9 +108,7 @@ const EndState = {
 			});
 
 			processed = collected.concat(others);
-		} else {
-			// fsm.queuedState = StartState;
-		}
+		} 
 
         return randoms.concat(processed);
 	},

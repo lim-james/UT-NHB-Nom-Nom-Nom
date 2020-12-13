@@ -23,6 +23,7 @@ const InitState = {
 			right: await Audio.getAudioPlaybackController('Right'),
             done: await Audio.getAudioPlaybackController('Done'),
         };
+        game.crown = await Scene.root.findFirst('crown');
         return Food.init(objects);
     },
     
