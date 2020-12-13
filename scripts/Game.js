@@ -1,4 +1,3 @@
-const Scene = require('Scene');
 const Patches = require('Patches');
 
 import { randomisePosition } from './Food';
@@ -7,8 +6,6 @@ import InitState from './InitState';
 ///
 /// game properties
 ///
-
-const root = Scene.root;
 
 const DISHES = [
 	{
@@ -28,12 +25,6 @@ const DISHES = [
 ///
 /// game helper methods
 ///
-
-const initializeObject = async object => {
-	object.sceneObject = await root.findFirst(object.key + '_appear');
-	object.sceneObject.hidden = true;
-	return object;
-};
 
 const setFoodPatches = object => {
 	object.sceneObject.transform.x = object.position.x;
@@ -70,7 +61,6 @@ const FSM = {
 	queuedState: null,
 
 	init: async objects => {
-		Game.dishes = await Promise.all(DISHES.map(initializeObject));
 		return FSM.state.enter(FSM, Game, objects);
 	},
 
@@ -98,4 +88,5 @@ const FSM = {
 };
 
 export default FSM;
+export { DISHES };
 

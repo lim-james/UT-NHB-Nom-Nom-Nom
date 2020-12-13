@@ -1,5 +1,6 @@
 const Patches = require('Patches');
 const Scene = require('Scene');
+const Diagnostics = require('Diagnostics');
 
 import Food from './Food';
 import Mouth from './Mouth';
@@ -34,18 +35,30 @@ const onMouthClose = (game, object) => {
 
 const GameState = {
     enter: async (fsm, game, objects) => {
-	    game.et = game.duration;
+		game.et = game.duration;
+		
+		const currKey = game.currentDish().key;
 
-	    game.dishes.forEach(
-		    dish => dish.sceneObject.hidden = true
-		);
+	    game.dishes.forEach(dish => {
+			dish.container.hidden = dish.key != currKey;
+			dish.sceneObject.hidden = true
+		});
 		
 		game.collected = [];
 
-	    const enabledPhysics = objects.map(object => {
+		let ingredients = [];
+		let randoms = [];
+
+		objects.forEach(
+			element => (game.isIngredient(element) ? ingredients : randoms).push(element)
+		);
+
+	    ingredients = ingredients.map(object => {
 		    object.physics.isKinematic = true;
 		    return object;
 		});
+
+		const enabledPhysics = ingredients.concat(randoms);
 		
 		GameState.right = {
 			delay: 0,
