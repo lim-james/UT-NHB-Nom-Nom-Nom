@@ -39,8 +39,11 @@ const Game = {
 	et: 0,
 	duration: 15,
 
+	wrongDishes: ['banana', 'chicken', 'chocolate', 'pumpkin', 'corn'],
+
 	currentDish : () => Game.dishes[Game.dishIndex.pinLastValue()],
 	isIngredient: item => Game.currentDish().ingredients.includes(item.key),
+	isInGame: item => Game.currentDish().ingredients.includes(item.key) || Game.wrongDishes.includes(item.key),
 
 	randomisePosition: object => {
 		if (Game.isIngredient(object))

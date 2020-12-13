@@ -19,7 +19,7 @@ const onMouthClose = (game, object) => {
 	} else {
 		// not one of the dishes
 		indicator = GameState.wrong;
-		audio = game.audio.wrong;
+		audio = game.currentDish().chompWrong;
 	}
 
 	indicator.delay = 0.4;
@@ -50,7 +50,7 @@ const GameState = {
 		let randoms = [];
 
 		objects.forEach(
-			element => (game.isIngredient(element) ? ingredients : randoms).push(element)
+			element => (game.isInGame(element) ? ingredients : randoms).push(element)
 		);
 
 	    ingredients = ingredients.map(object => {
