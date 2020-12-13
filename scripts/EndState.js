@@ -91,7 +91,13 @@ const EndState = {
 				element => (isCollected(element) ? collected : others).push(element)
 			);
 
-			game.crown.hidden = others.length == 0;
+			game.crown.hidden = others.length > 0;
+
+			others = others.map((value, index) => {
+				const t = Math.clamp((et - index * 0.5) / 3, 0, 1);
+				if (t >= 0.25) value.stamp.hidden = false;
+		    	return value;
+			});
 
 			collected = collected.map((value, index) => {
 				const t = Math.clamp((et - index * 0.5) / 3, 0, 1);
@@ -120,7 +126,10 @@ const EndState = {
 
 		TouchGestures.onTap().subscribe(() => {});
 
-		return objects;
+		return objects.map(value => {
+			value.stamp.hidden = true;
+			return value;
+		});
 	},
 };
 

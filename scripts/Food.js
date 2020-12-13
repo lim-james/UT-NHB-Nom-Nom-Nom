@@ -18,6 +18,7 @@ const randomisePosition = (object, multiplier = 3, offset = 1) => {
 
 const initializeObject = async object => {
 	object.sceneObject = await Scene.root.findFirst(object.key);
+	object.stamp = await object.sceneObject.findFirst('missed');
 	return randomisePosition(object);
 };
 
