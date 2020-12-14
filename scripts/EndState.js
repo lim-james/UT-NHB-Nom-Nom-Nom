@@ -127,9 +127,11 @@ const EndState = {
 		TouchGestures.onTap().subscribe(() => {});
 
 		return objects.map(value => {
-			value.stamp.hidden = true;
+			if (value.stamp != null)
+				value.stamp.hidden = true;
 			return value;
 		});
+		return objects;
 	},
 };
 
