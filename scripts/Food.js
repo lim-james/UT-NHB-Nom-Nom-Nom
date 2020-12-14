@@ -44,7 +44,6 @@ addDish('popiah_skin');
 addDish('turnip');
 addDish('beansprouts');
 addDish('carrot');
-addDish('coriander');
 addDish('shrimp_paste');
 addDish('peanuts');
 // ondeh

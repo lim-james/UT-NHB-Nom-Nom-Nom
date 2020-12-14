@@ -10,7 +10,7 @@ import InitState from './InitState';
 const DISHES = [
 	{
 		key: 'popiah',
-		ingredients: ['popiah_skin', 'turnip', 'beansprouts', 'carrot', 'coriander', 'shrimp_paste', 'peanuts']
+		ingredients: ['popiah_skin', 'turnip', 'beansprouts', 'carrot', 'shrimp_paste', 'peanuts']
 	},
 	{
 		key: 'ondeh',
