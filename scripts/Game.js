@@ -47,9 +47,9 @@ const Game = {
 
 	randomisePosition: object => {
 		if (Game.isIngredient(object))
-			return randomisePosition(object, 3, 1);
+			return randomisePosition(object, 2, 1);
 		else
-			return randomisePosition(object, 8, 2);
+			return randomisePosition(object, 5, 2);
 	},
 
 	collected: [],

@@ -18,7 +18,7 @@ const onMouthClose = (game, object) => {
 		audio = game.audio.right;
 	} else {
 		// not one of the dishes
-		indicator = GameState.wrong;
+		indicator = game.audio.wrong;
 		audio = game.currentDish().chompWrong;
 	}
 
@@ -71,6 +71,10 @@ const GameState = {
 		};
 
 		await Patches.inputs.setBoolean('isPlaying', true);
+
+
+		game.currentDish().startAudio.reset();
+		game.currentDish().startAudio.setPlaying(true);
 
 	    return enabledPhysics.map(game.randomisePosition);
     },

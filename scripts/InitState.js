@@ -10,7 +10,7 @@ const initializeObject = async object => {
 	object.container = await Scene.root.findFirst(object.key);
 	object.sceneObject = await Scene.root.findFirst(object.key + '_appear');
     object.sceneObject.hidden = true;
-    object.chompWrong = await Audio.getAudioPlaybackController(object.key + '_wrong');
+    object.startAudio = await Audio.getAudioPlaybackController(object.key + '_start');
 	return object;
 };
 
@@ -21,6 +21,7 @@ const InitState = {
 			bg: await Audio.getAudioPlaybackController('Timer'),
 			final: await Audio.getAudioPlaybackController('Final'),
 			right: await Audio.getAudioPlaybackController('Right'),
+			wrong: await Audio.getAudioPlaybackController('Wrong'),
             done: await Audio.getAudioPlaybackController('Done'),
         };
         game.crown = await Scene.root.findFirst('crown');
