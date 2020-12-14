@@ -18,8 +18,8 @@ const onMouthClose = (game, object) => {
 		audio = game.audio.right;
 	} else {
 		// not one of the dishes
-		indicator = game.audio.wrong;
-		audio = game.currentDish().chompWrong;
+		indicator = GameState.wrong;
+		audio = game.audio.wrong;
 	}
 
 	indicator.delay = 0.4;
@@ -41,7 +41,7 @@ const GameState = {
 
 	    game.dishes.forEach(dish => {
 			dish.container.hidden = dish.key != currKey;
-			dish.sceneObject.hidden = true
+			dish.sceneObject.hidden = true;
 		});
 		
 		game.collected = [];
