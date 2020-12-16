@@ -10,6 +10,7 @@ import GameState from './GameState';
 
 const EndState = {
 	clockY: -0.15,
+	recording: true,
 
     enter: async (fsm, game, objects) => {
     	game.currentDish().sceneObject.hidden = false;
@@ -52,6 +53,17 @@ const EndState = {
     },
 
     update: async (fsm, game, objects, dt) => {
+		if (EndState.recording) {
+			if (!game.isRecording.pinLastValue()) {
+				EndState.recording = false;
+			}
+		} else {
+			if (game.isRecording.pinLastValue()) {
+				fsm.queuedState = GameState;
+				EndState.recording = true;
+			}
+		}
+
 		game.et += dt;
 
 		if (EndState.blastDelay > 0) {
