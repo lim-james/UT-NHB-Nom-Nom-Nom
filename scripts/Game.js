@@ -57,6 +57,7 @@ const Game = {
 
 (async () => {
 	Game.dishIndex = await Patches.outputs.getScalar('dishIndex');
+	Game.isRecording = await Patches.outputs.getBoolean('isRecording');
 })();
 
 const FSM = {

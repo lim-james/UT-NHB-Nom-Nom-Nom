@@ -80,7 +80,7 @@ const GameState = {
     },
 
     update: async (fsm, game, objects, dt) => {
-        if (game.et <= 0) {
+        if (game.et <= 0 || !game.isRecording.pinLastValue()) {
             fsm.queuedState = EndState;
             return objects;
         }
